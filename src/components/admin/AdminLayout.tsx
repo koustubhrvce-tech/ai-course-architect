@@ -1,40 +1,38 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  BookOpen,
-  GraduationCap,
   LayoutDashboard,
-  Search,
+  Users,
+  BookOpen,
   Settings,
-  FileText,
-  MessageSquare,
-  User,
-  LogOut,
-  Sparkles,
+  Shield,
+  BarChart3,
+  Bell,
   ChevronLeft,
   ChevronRight,
-  Bell,
+  Search,
+  LogOut,
+  User,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AIFloatingButton } from "@/components/ai/AIFloatingButton";
 
-interface StudentLayoutProps {
+interface AdminLayoutProps {
   children: ReactNode;
 }
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/student" },
-  { icon: Search, label: "Browse Courses", href: "/student/catalog" },
-  { icon: BookOpen, label: "My Learning", href: "/student/learning" },
-  { icon: FileText, label: "Assignments", href: "/student/assignments" },
-  { icon: MessageSquare, label: "Messages", href: "/student/messages" },
-  { icon: Settings, label: "Settings", href: "/student/settings" },
+  { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+  { icon: Users, label: "User Management", href: "/admin/users" },
+  { icon: BookOpen, label: "Course Moderation", href: "/admin/courses" },
+  { icon: BarChart3, label: "Analytics", href: "/admin/analytics" },
+  { icon: Settings, label: "System Settings", href: "/admin/settings" },
 ];
 
-export default function StudentLayout({ children }: StudentLayoutProps) {
+export default function AdminLayout({ children }: AdminLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
 
@@ -49,10 +47,10 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
       >
         {/* Logo */}
         <div className="flex items-center gap-2 h-16 px-4 border-b border-sidebar-border">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-lms-blue">
-            <GraduationCap className="h-5 w-5 text-white" />
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-lms-rose">
+            <Shield className="h-5 w-5 text-white" />
           </div>
-          {!collapsed && <span className="font-semibold text-lg">Student</span>}
+          {!collapsed && <span className="font-semibold text-lg">Admin</span>}
         </div>
 
         {/* Navigation */}
@@ -88,13 +86,13 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
         {/* User Profile */}
         <div className="p-4 border-t border-sidebar-border">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-full bg-lms-emerald flex items-center justify-center text-white font-medium">
-              S
+            <div className="h-9 w-9 rounded-full bg-lms-rose flex items-center justify-center text-white font-medium">
+              A
             </div>
             {!collapsed && (
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">Student User</p>
-                <p className="text-xs text-sidebar-muted truncate">student@example.com</p>
+                <p className="text-sm font-medium truncate">Admin User</p>
+                <p className="text-xs text-sidebar-muted truncate">admin@lms.com</p>
               </div>
             )}
           </div>
@@ -108,7 +106,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
           <div className="flex items-center gap-4">
             <div className="relative w-80">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search courses, lessons..." className="pl-10" />
+              <Input placeholder="Search users, courses..." className="pl-10" />
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -116,7 +114,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-lms-rose" />
             </Button>
-            <Link to="/student/settings">
+            <Link to="/admin/settings">
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
               </Button>
