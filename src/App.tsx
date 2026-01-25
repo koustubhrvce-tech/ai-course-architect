@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 // Marketing Pages
 import Landing from "./pages/Landing";
@@ -17,26 +18,19 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 
-// Instructor Pages
-import Dashboard from "./pages/Dashboard";
-import Courses from "./pages/Courses";
-import Students from "./pages/Students";
-import CourseCreator from "./pages/instructor/CourseCreator";
-import Messages from "./pages/instructor/Messages";
-import InstructorSettings from "./pages/instructor/InstructorSettings";
+// Unified Dashboard
+import UnifiedDashboardPage from "./pages/UnifiedDashboardPage";
 
-// Student Pages
-import StudentDashboard from "./pages/student/StudentDashboard";
-import CourseCatalog from "./pages/student/CourseCatalog";
-import CoursePlayer from "./pages/student/CoursePlayer";
-import Assignments from "./pages/student/Assignments";
-import StudentSettings from "./pages/student/StudentSettings";
+// Course Pages
+import CourseDetail from "./pages/dashboard/CourseDetail";
+import LessonEditor from "./pages/dashboard/LessonEditor";
+import CourseLearn from "./pages/course/CourseLearn";
+import CoursePreview from "./pages/course/CoursePreview";
 
-// Admin Pages
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import UserManagement from "./pages/admin/UserManagement";
-import CourseModeration from "./pages/admin/CourseModeration";
-import AdminSettings from "./pages/admin/AdminSettings";
+// E-commerce
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import OrderSuccess from "./pages/OrderSuccess";
 
 // Other
 import NotFound from "./pages/NotFound";
@@ -46,48 +40,46 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          {/* Marketing Routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            {/* Marketing Routes */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
 
-          {/* Auth Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+            {/* Auth Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* Instructor Routes */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/courses/create" element={<CourseCreator />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/settings" element={<InstructorSettings />} />
+            {/* Unified Dashboard - Role-based content */}
+            <Route path="/dashboard" element={<UnifiedDashboardPage />} />
+            <Route path="/dashboard/*" element={<UnifiedDashboardPage />} />
 
-          {/* Student Routes */}
-          <Route path="/student" element={<StudentDashboard />} />
-          <Route path="/student/catalog" element={<CourseCatalog />} />
-          <Route path="/student/course/:id" element={<CoursePlayer />} />
-          <Route path="/student/assignments" element={<Assignments />} />
-          <Route path="/student/settings" element={<StudentSettings />} />
+            {/* Course Management (Teacher) */}
+            <Route path="/dashboard/courses/:id" element={<CourseDetail />} />
+            <Route path="/dashboard/courses/:courseId/lessons/:lessonId" element={<LessonEditor />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/users" element={<UserManagement />} />
-          <Route path="/admin/courses" element={<CourseModeration />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
+            {/* Course Learning (Student) */}
+            <Route path="/course/:id" element={<CoursePreview />} />
+            <Route path="/course/:id/learn" element={<CourseLearn />} />
 
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+            {/* E-commerce */}
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
+
+            {/* Catch-all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
