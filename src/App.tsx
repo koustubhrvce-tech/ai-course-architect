@@ -21,6 +21,16 @@ import ForgotPassword from "./pages/ForgotPassword";
 // Unified Dashboard
 import UnifiedDashboardPage from "./pages/UnifiedDashboardPage";
 
+// Dashboard Sub-pages
+import MyCourses from "./pages/dashboard/MyCourses";
+import Analytics from "./pages/dashboard/Analytics";
+import Settings from "./pages/dashboard/Settings";
+import Messages from "./pages/dashboard/Messages";
+import Certificates from "./pages/dashboard/Certificates";
+import CourseManagement from "./pages/dashboard/CourseManagement";
+import UsersPage from "./pages/dashboard/Users";
+import Moderation from "./pages/dashboard/Moderation";
+
 // Course Pages
 import CourseDetail from "./pages/dashboard/CourseDetail";
 import LessonEditor from "./pages/dashboard/LessonEditor";
@@ -58,13 +68,20 @@ const App = () => (
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            {/* Unified Dashboard - Role-based content */}
+            {/* Unified Dashboard - Main */}
             <Route path="/dashboard" element={<UnifiedDashboardPage />} />
-            <Route path="/dashboard/*" element={<UnifiedDashboardPage />} />
-
-            {/* Course Management (Teacher) */}
+            
+            {/* Dashboard Sub-routes (shared + role-specific) */}
+            <Route path="/dashboard/my-courses" element={<MyCourses />} />
+            <Route path="/dashboard/courses" element={<CourseManagement />} />
             <Route path="/dashboard/courses/:id" element={<CourseDetail />} />
             <Route path="/dashboard/courses/:courseId/lessons/:lessonId" element={<LessonEditor />} />
+            <Route path="/dashboard/analytics" element={<Analytics />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
+            <Route path="/dashboard/messages" element={<Messages />} />
+            <Route path="/dashboard/certificates" element={<Certificates />} />
+            <Route path="/dashboard/users" element={<UsersPage />} />
+            <Route path="/dashboard/moderation" element={<Moderation />} />
 
             {/* Course Learning (Student) */}
             <Route path="/course/:id" element={<CoursePreview />} />
