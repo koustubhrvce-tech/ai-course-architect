@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import {
   User,
   Bell,
@@ -38,11 +39,8 @@ export default function Settings() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Settings</h1>
-        <p className="text-muted-foreground">Manage your account and preferences</p>
-      </div>
+    <UnifiedDashboard title="Settings" subtitle="Manage your account and preferences">
+      <div className="p-6 space-y-6">
 
       <Tabs defaultValue="profile" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 lg:w-auto">
@@ -372,6 +370,7 @@ export default function Settings() {
           </TabsContent>
         )}
       </Tabs>
-    </div>
+      </div>
+    </UnifiedDashboard>
   );
 }

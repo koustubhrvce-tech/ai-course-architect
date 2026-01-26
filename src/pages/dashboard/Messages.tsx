@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import {
   Search,
   Send,
@@ -112,7 +113,8 @@ export default function Messages() {
   };
 
   return (
-    <div className="h-[calc(100vh-120px)] flex">
+    <UnifiedDashboard title="Messages" subtitle="Chat with your contacts">
+      <div className="h-[calc(100vh-8rem)] flex">
       {/* Conversations List */}
       <div className="w-80 border-r flex flex-col">
         <div className="p-4 border-b">
@@ -269,6 +271,7 @@ export default function Messages() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </UnifiedDashboard>
   );
 }

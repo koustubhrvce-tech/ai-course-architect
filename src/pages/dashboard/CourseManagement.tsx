@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import {
   Search,
   Plus,
@@ -98,19 +99,16 @@ export default function CourseManagement() {
   });
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Course Management</h1>
-          <p className="text-muted-foreground">Create and manage your courses</p>
+    <UnifiedDashboard title="Course Management" subtitle="Create and manage your courses">
+      <div className="p-6 space-y-6">
+        <div className="flex justify-end">
+          <Link to="/dashboard/courses/new">
+            <Button className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
+              <Plus className="h-4 w-4" />
+              Create Course
+            </Button>
+          </Link>
         </div>
-        <Link to="/dashboard/courses/new">
-          <Button className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
-            <Plus className="h-4 w-4" />
-            Create Course
-          </Button>
-        </Link>
-      </div>
 
       {/* Stats Overview */}
       <div className="grid gap-4 md:grid-cols-4">
@@ -281,6 +279,7 @@ export default function CourseManagement() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+      </div>
+    </UnifiedDashboard>
   );
 }
