@@ -28,12 +28,15 @@ import Settings from "./pages/dashboard/Settings";
 import Messages from "./pages/dashboard/Messages";
 import Certificates from "./pages/dashboard/Certificates";
 import CourseManagement from "./pages/dashboard/CourseManagement";
+import CourseBuilder from "./pages/dashboard/CourseBuilder";
 import UsersPage from "./pages/dashboard/Users";
 import Moderation from "./pages/dashboard/Moderation";
 
 // Course Pages
-import CourseDetail from "./pages/dashboard/CourseDetail";
-import LessonEditor from "./pages/dashboard/LessonEditor";
+import CourseDetailPage from "./pages/course/CourseDetail";
+import LessonPlayer from "./pages/learn/LessonPlayer";
+
+// Course Learning (legacy)
 import CourseLearn from "./pages/course/CourseLearn";
 import CoursePreview from "./pages/course/CoursePreview";
 
@@ -74,8 +77,8 @@ const App = () => (
             {/* Dashboard Sub-routes (shared + role-specific) */}
             <Route path="/dashboard/my-courses" element={<MyCourses />} />
             <Route path="/dashboard/courses" element={<CourseManagement />} />
-            <Route path="/dashboard/courses/:id" element={<CourseDetail />} />
-            <Route path="/dashboard/courses/:courseId/lessons/:lessonId" element={<LessonEditor />} />
+            <Route path="/dashboard/courses/new" element={<CourseBuilder />} />
+            <Route path="/dashboard/courses/:id/edit" element={<CourseBuilder />} />
             <Route path="/dashboard/analytics" element={<Analytics />} />
             <Route path="/dashboard/settings" element={<Settings />} />
             <Route path="/dashboard/messages" element={<Messages />} />
@@ -83,9 +86,9 @@ const App = () => (
             <Route path="/dashboard/users" element={<UsersPage />} />
             <Route path="/dashboard/moderation" element={<Moderation />} />
 
-            {/* Course Learning (Student) */}
-            <Route path="/course/:id" element={<CoursePreview />} />
-            <Route path="/course/:id/learn" element={<CourseLearn />} />
+            {/* Course Pages (Standalone) */}
+            <Route path="/course/:id" element={<CourseDetailPage />} />
+            <Route path="/learn/:courseId/lesson/:lessonId" element={<LessonPlayer />} />
 
             {/* E-commerce */}
             <Route path="/cart" element={<Cart />} />
