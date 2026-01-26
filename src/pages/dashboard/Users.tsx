@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import {
   Search,
   Plus,
@@ -115,17 +116,14 @@ export default function UsersPage() {
   });
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">User Management</h1>
-          <p className="text-muted-foreground">Manage platform users and permissions</p>
+    <UnifiedDashboard title="User Management" subtitle="Manage platform users and permissions">
+      <div className="p-6 space-y-6">
+        <div className="flex justify-end">
+          <Button className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
+            <Plus className="h-4 w-4" />
+            Add User
+          </Button>
         </div>
-        <Button className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
-          <Plus className="h-4 w-4" />
-          Add User
-        </Button>
-      </div>
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-4">
@@ -279,6 +277,7 @@ export default function UsersPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+      </div>
+    </UnifiedDashboard>
   );
 }

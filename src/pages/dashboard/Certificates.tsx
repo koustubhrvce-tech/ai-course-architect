@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import {
   Award,
   Download,
@@ -42,11 +43,8 @@ const certificates = [
 
 export default function Certificates() {
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">My Certificates</h1>
-        <p className="text-muted-foreground">View and share your achievements</p>
-      </div>
+    <UnifiedDashboard title="My Certificates" subtitle="View and share your achievements">
+      <div className="p-6 space-y-6">
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-3">
@@ -149,6 +147,7 @@ export default function Certificates() {
           </Card>
         ))}
       </div>
-    </div>
+      </div>
+    </UnifiedDashboard>
   );
 }

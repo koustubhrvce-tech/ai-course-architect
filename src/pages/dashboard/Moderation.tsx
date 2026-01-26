@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import {
   Search,
   CheckCircle2,
@@ -71,7 +72,7 @@ const flaggedContent = [
     id: "2",
     type: "Comment",
     content: "Check out my website for free courses...",
-    reporter: "System (AI)",
+    reporter: "System",
     reportedDate: "1 day ago",
     reason: "Spam detected",
   },
@@ -88,11 +89,8 @@ export default function Moderation() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Content Moderation</h1>
-        <p className="text-muted-foreground">Review and approve courses and content</p>
-      </div>
+    <UnifiedDashboard title="Content Moderation" subtitle="Review and approve courses and content">
+      <div className="p-6 space-y-6">
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-4">
@@ -268,6 +266,7 @@ export default function Moderation() {
           ))}
         </TabsContent>
       </Tabs>
-    </div>
+      </div>
+    </UnifiedDashboard>
   );
 }
