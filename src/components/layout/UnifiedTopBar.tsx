@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Search, Plus, Sparkles, Menu, X } from "lucide-react";
+import { Bell, Search, Menu, X, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -23,42 +17,8 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
   const { user } = useAuth();
   const [showSearch, setShowSearch] = useState(false);
 
-  const getActionButton = () => {
-    switch (user?.role) {
-      case "teacher":
-        return (
-          <Link to="/dashboard/courses/create">
-            <Button size="sm" className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
-              <Plus className="h-4 w-4" />
-              <span className="hidden sm:inline">Create Course</span>
-            </Button>
-          </Link>
-        );
-      case "student":
-        return (
-          <Link to="/dashboard/catalog">
-            <Button size="sm" className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
-              <Search className="h-4 w-4" />
-              <span className="hidden sm:inline">Browse Courses</span>
-            </Button>
-          </Link>
-        );
-      case "admin":
-        return (
-          <Link to="/dashboard/users">
-            <Button size="sm" className="gap-2 bg-lms-purple hover:bg-lms-purple/90">
-              <Sparkles className="h-4 w-4" />
-              <span className="hidden sm:inline">AI Reports</span>
-            </Button>
-          </Link>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-4 md:px-6">
+    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-white px-4 md:px-6 shadow-nav">
       {/* Mobile Menu */}
       <Sheet>
         <SheetTrigger asChild>
@@ -75,7 +35,7 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
       <div className="hidden md:block">
         {title && (
           <div>
-            <h1 className="text-xl font-semibold text-foreground">{title}</h1>
+            <h1 className="text-lg font-semibold text-foreground">{title}</h1>
             {subtitle && (
               <p className="text-sm text-muted-foreground">{subtitle}</p>
             )}
@@ -83,15 +43,23 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
         )}
       </div>
 
+      {/* Mobile Logo */}
+      <Link to="/dashboard" className="flex items-center gap-2 md:hidden">
+        <div className="flex h-8 w-8 items-center justify-center rounded bg-coursera-blue">
+          <GraduationCap className="h-5 w-5 text-white" />
+        </div>
+        <span className="text-lg font-bold">LearnAI</span>
+      </Link>
+
       {/* Right Side Actions */}
-      <div className="flex items-center gap-2 md:gap-4 ml-auto">
+      <div className="flex items-center gap-2 md:gap-3 ml-auto">
         {/* Search */}
         <div className="relative hidden md:block">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search..."
-            className="w-64 pl-9 bg-muted/50"
+            className="w-64 pl-10 h-9 bg-muted/50 border-0 focus:bg-white focus:border"
           />
         </div>
 
@@ -105,49 +73,20 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
           {showSearch ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
         </Button>
 
-        {/* AI Quick Actions */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
-              <Sparkles className="h-5 w-5 text-lms-purple" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem className="gap-2">
-              <Sparkles className="h-4 w-4 text-lms-purple" />
-              AI Assistant
-            </DropdownMenuItem>
-            {user?.role === "teacher" && (
-              <DropdownMenuItem className="gap-2">
-                <Sparkles className="h-4 w-4 text-lms-purple" />
-                Generate Course Outline
-              </DropdownMenuItem>
-            )}
-            {user?.role === "student" && (
-              <DropdownMenuItem className="gap-2">
-                <Sparkles className="h-4 w-4 text-lms-purple" />
-                Find Courses for Me
-              </DropdownMenuItem>
-            )}
-            {user?.role === "admin" && (
-              <DropdownMenuItem className="gap-2">
-                <Sparkles className="h-4 w-4 text-lms-purple" />
-                Platform Health Report
-              </DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
         {/* Notifications */}
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />
-          <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full bg-lms-rose p-0 text-xs">
+          <span className="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full bg-coursera-orange text-[10px] text-white flex items-center justify-center font-medium">
             3
-          </Badge>
+          </span>
         </Button>
 
-        {/* Role-specific Action */}
-        {getActionButton()}
+        {/* User Avatar - Mobile Only */}
+        <div className="md:hidden">
+          <div className="h-8 w-8 rounded-full bg-coursera-blue flex items-center justify-center text-white text-sm font-medium">
+            {user?.name.slice(0, 2).toUpperCase()}
+          </div>
+        </div>
       </div>
     </header>
   );

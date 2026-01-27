@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { UnifiedSidebar } from "./UnifiedSidebar";
 import { UnifiedTopBar } from "./UnifiedTopBar";
-import { AIFloatingButton } from "@/components/ai/AIFloatingButton";
 
 interface UnifiedDashboardProps {
   children: ReactNode;
@@ -19,15 +18,14 @@ export function UnifiedDashboard({ children, title, subtitle }: UnifiedDashboard
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/30">
+    <div className="flex min-h-screen w-full bg-muted">
       <UnifiedSidebar />
       <div className="flex flex-1 flex-col pl-[260px] max-md:pl-0">
         <UnifiedTopBar title={title} subtitle={subtitle} />
-        <main className="flex-1">
+        <main className="flex-1 p-6">
           {children}
         </main>
       </div>
-      <AIFloatingButton />
     </div>
   );
 }

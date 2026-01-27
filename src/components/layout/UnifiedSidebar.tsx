@@ -15,13 +15,13 @@ import {
   GraduationCap,
   BarChart3,
   FileText,
-  Sparkles,
   LogOut,
   ShieldCheck,
   Sliders,
   ShoppingCart,
   Trophy,
   Target,
+  Plus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -50,24 +50,24 @@ const getNavItems = (role: UserRole): NavItem[] => {
       ];
     case "student":
       return [
-        { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-        { icon: GraduationCap, label: "My Courses", href: "/dashboard/my-courses" },
-        { icon: BookOpen, label: "Browse Courses", href: "/dashboard/catalog" },
+        { icon: LayoutDashboard, label: "Home", href: "/dashboard" },
+        { icon: GraduationCap, label: "My Learning", href: "/dashboard/my-courses" },
+        { icon: BookOpen, label: "Catalog", href: "/dashboard/catalog" },
         { icon: FileText, label: "Assignments", href: "/dashboard/assignments" },
-        { icon: Trophy, label: "Certificates", href: "/dashboard/certificates" },
-        { icon: Target, label: "Learning Path", href: "/dashboard/learning-path" },
+        { icon: Trophy, label: "Achievements", href: "/dashboard/certificates" },
+        { icon: Target, label: "Goals", href: "/dashboard/learning-path" },
         { icon: MessageSquare, label: "Messages", href: "/dashboard/messages" },
-        { icon: ShoppingCart, label: "My Cart", href: "/dashboard/cart" },
+        { icon: ShoppingCart, label: "Cart", href: "/dashboard/cart" },
       ];
     case "admin":
       return [
         { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-        { icon: Users, label: "User Management", href: "/dashboard/users" },
-        { icon: BookOpen, label: "Course Moderation", href: "/dashboard/courses" },
+        { icon: Users, label: "Users", href: "/dashboard/users" },
+        { icon: BookOpen, label: "Courses", href: "/dashboard/courses" },
         { icon: DollarSign, label: "Revenue", href: "/dashboard/revenue" },
         { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
         { icon: ShieldCheck, label: "Security", href: "/dashboard/security" },
-        { icon: Sliders, label: "AI Settings", href: "/dashboard/ai-settings" },
+        { icon: Sliders, label: "Settings", href: "/dashboard/ai-settings" },
       ];
     default:
       return [];
@@ -76,7 +76,7 @@ const getNavItems = (role: UserRole): NavItem[] => {
 
 const bottomNav: NavItem[] = [
   { icon: Settings, label: "Settings", href: "/dashboard/settings" },
-  { icon: HelpCircle, label: "Help Center", href: "/dashboard/help" },
+  { icon: HelpCircle, label: "Help", href: "/dashboard/help" },
 ];
 
 export function UnifiedSidebar() {
@@ -106,7 +106,7 @@ export function UnifiedSidebar() {
       case "teacher":
         return "Instructor";
       case "student":
-        return "Student";
+        return "Learner";
       case "admin":
         return "Administrator";
       default:
@@ -114,73 +114,41 @@ export function UnifiedSidebar() {
     }
   };
 
-  const getRoleColor = (role: UserRole) => {
-    switch (role) {
-      case "teacher":
-        return "text-lms-blue";
-      case "student":
-        return "text-lms-emerald";
-      case "admin":
-        return "text-lms-purple";
-      default:
-        return "text-muted-foreground";
-    }
-  };
-
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 flex h-screen flex-col bg-sidebar text-sidebar-foreground transition-all duration-300 shadow-sidebar max-md:hidden",
+        "fixed left-0 top-0 z-40 flex h-screen flex-col bg-white border-r border-border transition-all duration-300 max-md:hidden",
         collapsed ? "w-[70px]" : "w-[260px]"
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
+      <div className="flex h-14 items-center justify-between border-b border-border px-4">
         {!collapsed && (
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sidebar-primary">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded bg-coursera-blue">
+              <GraduationCap className="h-5 w-5 text-white" />
             </div>
-            <span className="text-lg font-semibold">LearnAI</span>
+            <span className="text-lg font-bold">LearnAI</span>
           </Link>
         )}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setCollapsed(!collapsed)}
-          className="h-8 w-8 text-sidebar-muted hover:bg-sidebar-accent hover:text-sidebar-foreground"
-        >
-          {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-        </Button>
+        {collapsed && (
+          <div className="flex h-8 w-8 items-center justify-center rounded bg-coursera-blue mx-auto">
+            <GraduationCap className="h-5 w-5 text-white" />
+          </div>
+        )}
       </div>
-
-      {/* Role Badge */}
-      {!collapsed && (
-        <div className="px-4 py-3 border-b border-sidebar-border">
-          <span className={cn("text-xs font-medium uppercase tracking-wider", getRoleColor(user.role))}>
-            {getRoleLabel(user.role)} Portal
-          </span>
-        </div>
-      )}
 
       {/* Main Navigation */}
       <nav className="flex-1 space-y-1 overflow-y-auto p-3 scrollbar-thin">
-        <div className="mb-2">
-          {!collapsed && (
-            <span className="px-3 text-xs font-medium uppercase tracking-wider text-sidebar-muted">
-              Main Menu
-            </span>
-          )}
-        </div>
         {navItems.map((item) => (
           <Link
             key={item.href}
             to={item.href}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors",
               isActive(item.href)
-                ? "bg-sidebar-accent text-sidebar-primary"
-                : "text-sidebar-muted hover:bg-sidebar-accent hover:text-sidebar-foreground"
+                ? "bg-coursera-blue-light text-coursera-blue border-l-2 border-coursera-blue -ml-[2px]"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
           >
             <item.icon className="h-5 w-5 flex-shrink-0" />
@@ -188,7 +156,7 @@ export function UnifiedSidebar() {
               <>
                 <span className="flex-1">{item.label}</span>
                 {item.badge && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-sidebar-primary px-1.5 text-xs text-white">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-coursera-blue px-1.5 text-xs text-white">
                     {item.badge}
                   </span>
                 )}
@@ -198,36 +166,29 @@ export function UnifiedSidebar() {
         ))}
       </nav>
 
-      {/* AI Assistant Promo */}
-      {!collapsed && (
-        <div className="mx-3 mb-3 rounded-lg bg-sidebar-accent p-4">
-          <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-lms-purple">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div>
-            <div className="flex-1">
-              <h4 className="text-sm font-semibold">AI Assistant</h4>
-              <p className="text-xs text-sidebar-muted">
-                {user.role === "teacher" && "Get help with course creation"}
-                {user.role === "student" && "Ask questions anytime"}
-                {user.role === "admin" && "Platform insights at your fingertips"}
-              </p>
-            </div>
-          </div>
+      {/* Create Course Button for Teachers */}
+      {!collapsed && user.role === "teacher" && (
+        <div className="px-3 pb-3">
+          <Link to="/dashboard/courses/new">
+            <Button className="w-full gap-2 bg-coursera-blue hover:bg-coursera-blue-hover">
+              <Plus className="h-4 w-4" />
+              Create Course
+            </Button>
+          </Link>
         </div>
       )}
 
       {/* Bottom Navigation */}
-      <div className="border-t border-sidebar-border p-3">
+      <div className="border-t border-border p-3">
         {bottomNav.map((item) => (
           <Link
             key={item.href}
             to={item.href}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors",
               isActive(item.href)
-                ? "bg-sidebar-accent text-sidebar-primary"
-                : "text-sidebar-muted hover:bg-sidebar-accent hover:text-sidebar-foreground"
+                ? "bg-coursera-blue-light text-coursera-blue"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
           >
             <item.icon className="h-5 w-5 flex-shrink-0" />
@@ -237,21 +198,23 @@ export function UnifiedSidebar() {
       </div>
 
       {/* User Profile */}
-      <div className="border-t border-sidebar-border p-3">
+      <div className="border-t border-border p-3">
         <div
           className={cn(
-            "flex items-center gap-3 rounded-lg px-3 py-2.5",
+            "flex items-center gap-3 px-3 py-2.5",
             collapsed ? "justify-center" : ""
           )}
         >
           <Avatar className="h-9 w-9">
             <AvatarImage src={user.avatar} />
-            <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+            <AvatarFallback className="bg-coursera-blue text-white text-sm">
+              {user.name.slice(0, 2).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           {!collapsed && (
             <div className="flex-1 overflow-hidden">
               <p className="truncate text-sm font-medium">{user.name}</p>
-              <p className={cn("truncate text-xs", getRoleColor(user.role))}>
+              <p className="truncate text-xs text-muted-foreground">
                 {getRoleLabel(user.role)}
               </p>
             </div>
@@ -261,13 +224,21 @@ export function UnifiedSidebar() {
               variant="ghost"
               size="icon"
               onClick={handleLogout}
-              className="h-8 w-8 text-sidebar-muted hover:bg-sidebar-accent hover:text-sidebar-foreground"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground"
             >
               <LogOut className="h-4 w-4" />
             </Button>
           )}
         </div>
       </div>
+
+      {/* Collapse Toggle */}
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className="absolute -right-3 top-20 flex h-6 w-6 items-center justify-center rounded-full bg-white border border-border text-muted-foreground hover:text-foreground shadow-sm"
+      >
+        {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+      </button>
     </aside>
   );
 }

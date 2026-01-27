@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Source Sans Pro', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,20 +61,21 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
           muted: "hsl(var(--sidebar-muted))",
         },
-        // LMS Custom Colors
-        lms: {
-          navy: "hsl(var(--lms-navy))",
-          "navy-light": "hsl(var(--lms-navy-light))",
-          blue: "hsl(var(--lms-blue))",
-          "blue-light": "hsl(var(--lms-blue-light))",
-          emerald: "hsl(var(--lms-emerald))",
-          "emerald-light": "hsl(var(--lms-emerald-light))",
-          amber: "hsl(var(--lms-amber))",
-          "amber-light": "hsl(var(--lms-amber-light))",
-          purple: "hsl(var(--lms-purple))",
-          "purple-light": "hsl(var(--lms-purple-light))",
-          rose: "hsl(var(--lms-rose))",
-          "rose-light": "hsl(var(--lms-rose-light))",
+        // Coursera-inspired Colors
+        coursera: {
+          blue: "hsl(var(--coursera-blue))",
+          "blue-hover": "hsl(var(--coursera-blue-hover))",
+          "blue-light": "hsl(var(--coursera-blue-light))",
+          navy: "hsl(var(--coursera-navy))",
+          "navy-light": "hsl(var(--coursera-navy-light))",
+          green: "hsl(var(--coursera-green))",
+          "green-light": "hsl(var(--coursera-green-light))",
+          purple: "hsl(var(--coursera-purple))",
+          "purple-light": "hsl(var(--coursera-purple-light))",
+          orange: "hsl(var(--coursera-orange))",
+          "orange-light": "hsl(var(--coursera-orange-light))",
+          gray: "hsl(var(--coursera-gray))",
+          "gray-light": "hsl(var(--coursera-gray-light))",
         },
         chart: {
           1: "hsl(var(--chart-1))",
@@ -85,9 +86,6 @@ export default {
         },
       },
       borderRadius: {
-        "3xl": "1.5rem",
-        "2xl": "1rem",
-        xl: "0.875rem",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
@@ -109,22 +107,17 @@ export default {
           from: { opacity: "0", transform: "translateX(8px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
-        "pulse-subtle": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.7" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "slide-in-right": "slide-in-right 0.3s ease-out",
-        "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
       },
       boxShadow: {
-        "card": "0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04)",
-        "card-hover": "0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)",
-        "sidebar": "2px 0 8px -2px rgb(0 0 0 / 0.1)",
+        "card": "0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08)",
+        "card-hover": "0 4px 8px rgba(0,0,0,.12), 0 8px 24px rgba(0,0,0,.12)",
+        "nav": "0 2px 4px rgba(0,0,0,.08)",
       },
     },
   },
