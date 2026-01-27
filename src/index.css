@@ -2,34 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap');
 
 @layer base {
   :root {
-    /* Core Background Colors */
+    /* Core Background Colors - Coursera Style */
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 0 0% 12%;
     
     /* Surface Colors */
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 0 0% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 0 0% 12%;
     
-    /* Brand Colors */
-    --primary: 217 91% 60%;
+    /* Coursera Blue - Primary Brand */
+    --primary: 213 100% 41%;
     --primary-foreground: 0 0% 100%;
     
-    /* Secondary - Soft Blue Gray */
-    --secondary: 214 32% 91%;
-    --secondary-foreground: 222 47% 11%;
+    /* Secondary - Gray */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 0 0% 12%;
     
-    /* Muted - Subtle Backgrounds */
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    /* Muted - Light Gray */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
     
-    /* Accent - Emerald Success */
-    --accent: 160 84% 39%;
+    /* Accent - Teal/Green */
+    --accent: 173 58% 39%;
     --accent-foreground: 0 0% 100%;
     
     /* Destructive */
@@ -37,65 +37,75 @@
     --destructive-foreground: 0 0% 100%;
     
     /* Borders & Inputs */
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 213 100% 41%;
     
-    --radius: 0.75rem;
+    --radius: 4px;
     
-    /* Sidebar - Dark Navy */
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217 91% 60%;
+    /* Sidebar - Clean White with Border */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 12%;
+    --sidebar-primary: 213 100% 41%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 217 91% 60%;
-    --sidebar-muted: 215 16% 47%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 213 100% 41%;
+    --sidebar-muted: 220 9% 46%;
     
-    /* Custom LMS Colors */
-    --lms-navy: 222 47% 11%;
-    --lms-navy-light: 217 33% 17%;
-    --lms-blue: 217 91% 60%;
-    --lms-blue-light: 214 95% 93%;
-    --lms-emerald: 160 84% 39%;
-    --lms-emerald-light: 152 76% 94%;
-    --lms-amber: 38 92% 50%;
-    --lms-amber-light: 48 96% 89%;
-    --lms-purple: 262 83% 58%;
-    --lms-purple-light: 270 91% 95%;
-    --lms-rose: 350 89% 60%;
-    --lms-rose-light: 350 100% 95%;
+    /* Coursera Color Palette */
+    --coursera-blue: 213 100% 41%;
+    --coursera-blue-hover: 213 100% 35%;
+    --coursera-blue-light: 213 100% 96%;
+    --coursera-navy: 213 37% 20%;
+    --coursera-navy-light: 213 37% 30%;
+    --coursera-green: 173 58% 39%;
+    --coursera-green-light: 173 58% 94%;
+    --coursera-purple: 262 52% 47%;
+    --coursera-purple-light: 262 52% 94%;
+    --coursera-orange: 27 98% 54%;
+    --coursera-orange-light: 27 98% 94%;
+    --coursera-gray: 220 9% 46%;
+    --coursera-gray-light: 220 14% 96%;
     
     /* Chart Colors */
-    --chart-1: 217 91% 60%;
-    --chart-2: 160 84% 39%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 262 83% 58%;
+    --chart-1: 213 100% 41%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 27 98% 54%;
+    --chart-4: 262 52% 47%;
     --chart-5: 350 89% 60%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 217 33% 17%;
-    --card-foreground: 210 40% 98%;
-    --popover: 217 33% 17%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 213 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 223 47% 11%;
     --muted-foreground: 215 20% 65%;
-    --accent: 160 84% 39%;
+    --accent: 173 58% 39%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 217 91% 60%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 213 100% 50%;
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 213 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 47% 11%;
+    --sidebar-accent-foreground: 213 31% 91%;
+    --sidebar-border: 216 34% 17%;
+    --sidebar-ring: 213 100% 50%;
+    --sidebar-muted: 215 20% 65%;
   }
 }
 
@@ -105,11 +115,15 @@
   }
 
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Source Sans Pro', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 1.6;
   }
 
   h1 {
@@ -125,44 +139,61 @@
   }
 
   h4 {
-    @apply text-lg font-medium;
+    @apply text-lg font-semibold;
   }
 }
 
 @layer components {
-  /* Stat Card Styles */
-  .stat-card {
-    @apply bg-card rounded-lg border border-border p-5 transition-shadow hover:shadow-md;
+  /* Coursera-style Course Card */
+  .course-card {
+    @apply bg-card border border-border overflow-hidden transition-all duration-200;
+    border-radius: 0;
+  }
+  
+  .course-card:hover {
+    @apply shadow-card-hover;
   }
 
-  /* AI Badge */
-  .ai-badge {
-    @apply inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-lms-purple-light text-lms-purple;
+  /* Coursera Button Styles */
+  .btn-coursera {
+    @apply bg-coursera-blue text-white font-semibold px-6 py-3 hover:bg-coursera-blue-hover transition-colors;
+    border-radius: 4px;
   }
 
-  /* Table Styles */
-  .table-header {
-    @apply text-xs font-medium text-muted-foreground uppercase tracking-wider;
+  .btn-coursera-outline {
+    @apply border-2 border-coursera-blue text-coursera-blue font-semibold px-6 py-3 hover:bg-coursera-blue-light transition-colors;
+    border-radius: 4px;
+    background: transparent;
   }
 
-  /* Navigation Active State */
-  .nav-item-active {
-    @apply bg-sidebar-accent text-sidebar-primary-foreground;
+  /* Badge Styles */
+  .badge-coursera {
+    @apply inline-flex items-center px-2 py-1 text-xs font-semibold uppercase tracking-wide;
+    border-radius: 2px;
   }
 
-  /* Floating AI Button */
-  .ai-floating-btn {
-    @apply fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-lms-navy shadow-lg flex items-center justify-center text-white hover:scale-105 transition-transform;
+  /* Navigation Active */
+  .nav-active {
+    @apply text-coursera-blue border-b-2 border-coursera-blue;
   }
 
-  /* Page Container */
-  .page-container {
-    @apply p-6 lg:p-8 space-y-6;
+  /* Progress Bar */
+  .progress-coursera {
+    @apply h-1 bg-coursera-gray-light rounded-none overflow-hidden;
+  }
+
+  .progress-coursera-fill {
+    @apply h-full bg-coursera-green;
   }
 
   /* Section Header */
   .section-header {
-    @apply flex items-center justify-between mb-4;
+    @apply text-2xl font-bold text-foreground mb-6;
+  }
+
+  /* Container Max Width */
+  .container-coursera {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
 
@@ -183,5 +214,15 @@
   
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     @apply bg-muted-foreground;
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
