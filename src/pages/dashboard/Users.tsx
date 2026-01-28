@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +11,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 import {
   Table,
   TableBody,
@@ -30,8 +45,12 @@ import {
   Users,
   UserCheck,
   UserX,
-  Filter,
+  Upload,
+  Download,
+  FileText,
+  X,
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const users = [
   {
@@ -91,21 +110,18 @@ const users = [
   },
 ];
 
-const roleColors = {
-  student: "bg-lms-blue/10 text-lms-blue",
-  teacher: "bg-lms-purple/10 text-lms-purple",
-  admin: "bg-lms-amber/10 text-lms-amber",
-};
-
-const statusColors = {
-  active: "bg-lms-emerald/10 text-lms-emerald",
-  suspended: "bg-destructive/10 text-destructive",
-  pending: "bg-lms-amber/10 text-lms-amber",
-};
-
 export default function UsersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
+  const [isCSVUploadOpen, setIsCSVUploadOpen] = useState(false);
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    role: "student",
+    password: "",
+  });
+  const { toast } = useToast();
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
@@ -115,168 +131,324 @@ export default function UsersPage() {
     return matchesSearch && user.role === activeTab;
   });
 
+  const handleAddUser = () => {
+    if (!newUser.name || !newUser.email || !newUser.password) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    toast({
+      title: "User Added",
+      description: `${newUser.name} has been added as a ${newUser.role}.`,
+    });
+    setNewUser({ name: "", email: "", role: "student", password: "" });
+    setIsAddUserOpen(false);
+  };
+
+  const handleCSVUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      toast({
+        title: "CSV Uploaded",
+        description: `Processing ${file.name}...`,
+      });
+      setIsCSVUploadOpen(false);
+    }
+  };
+
+  const downloadCSVTemplate = () => {
+    const csvContent = "name,email,role,password\nJohn Doe,john@example.com,student,password123\nJane Smith,jane@example.com,teacher,password456";
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "users_template.csv";
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const stats = [
+    { label: "Total Users", value: users.length, icon: Users, color: "text-primary" },
+    { label: "Active", value: users.filter((u) => u.status === "active").length, icon: UserCheck, color: "text-emerald-600" },
+    { label: "Teachers", value: users.filter((u) => u.role === "teacher").length, icon: Shield, color: "text-primary" },
+    { label: "Suspended", value: users.filter((u) => u.status === "suspended").length, icon: UserX, color: "text-destructive" },
+  ];
+
   return (
     <UnifiedDashboard title="User Management" subtitle="Manage platform users and permissions">
-      <div className="p-6 space-y-6">
-        <div className="flex justify-end">
-          <Button className="gap-2 bg-lms-blue hover:bg-lms-blue/90">
-            <Plus className="h-4 w-4" />
-            Add User
-          </Button>
+      <div className="space-y-6">
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {stats.map((stat) => (
+            <Card key={stat.label} className="border-border/50">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-muted">
+                    <stat.icon className={`h-5 w-5 ${stat.color}`} />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    <p className="text-2xl font-semibold">{stat.value}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-      {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card>
-          <CardContent className="p-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-lms-blue/10">
-              <Users className="h-5 w-5 text-lms-blue" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Total Users</p>
-              <p className="text-2xl font-bold">{users.length}</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-lms-emerald/10">
-              <UserCheck className="h-5 w-5 text-lms-emerald" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Active</p>
-              <p className="text-2xl font-bold">
-                {users.filter((u) => u.status === "active").length}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-lms-purple/10">
-              <Shield className="h-5 w-5 text-lms-purple" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Teachers</p>
-              <p className="text-2xl font-bold">
-                {users.filter((u) => u.role === "teacher").length}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10">
-              <UserX className="h-5 w-5 text-destructive" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Suspended</p>
-              <p className="text-2xl font-bold">
-                {users.filter((u) => u.status === "suspended").length}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+        {/* Actions Bar */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-between">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Search users by name or email..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-background"
+            />
+          </div>
+          <div className="flex gap-2">
+            {/* CSV Upload Dialog */}
+            <Dialog open={isCSVUploadOpen} onOpenChange={setIsCSVUploadOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="gap-2">
+                  <Upload className="h-4 w-4" />
+                  <span className="hidden sm:inline">Import CSV</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-lg">
+                <DialogHeader>
+                  <DialogTitle>Import Users from CSV</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  {/* Guidelines */}
+                  <div className="bg-muted/50 border border-border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center gap-2 text-sm font-medium">
+                      <FileText className="h-4 w-4 text-primary" />
+                      CSV Format Guidelines
+                    </div>
+                    <ul className="text-sm text-muted-foreground space-y-1.5 ml-6 list-disc">
+                      <li>First row must contain headers: <code className="bg-muted px-1 rounded text-xs">name,email,role,password</code></li>
+                      <li>Role must be one of: <code className="bg-muted px-1 rounded text-xs">student</code>, <code className="bg-muted px-1 rounded text-xs">teacher</code>, or <code className="bg-muted px-1 rounded text-xs">admin</code></li>
+                      <li>Email addresses must be unique and valid</li>
+                      <li>Password must be at least 8 characters</li>
+                      <li>Maximum 500 users per upload</li>
+                    </ul>
+                    <Button
+                      variant="link"
+                      size="sm"
+                      className="gap-1 p-0 h-auto text-primary"
+                      onClick={downloadCSVTemplate}
+                    >
+                      <Download className="h-3 w-3" />
+                      Download Template CSV
+                    </Button>
+                  </div>
 
-      {/* Search and Filter */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search users..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
+                  {/* Upload Area */}
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
+                    <input
+                      type="file"
+                      accept=".csv"
+                      onChange={handleCSVUpload}
+                      className="hidden"
+                      id="csv-upload"
+                    />
+                    <label htmlFor="csv-upload" className="cursor-pointer">
+                      <Upload className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+                      <p className="text-sm font-medium">Click to upload or drag and drop</p>
+                      <p className="text-xs text-muted-foreground mt-1">CSV files only (max 5MB)</p>
+                    </label>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/* Add User Dialog */}
+            <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
+              <DialogTrigger asChild>
+                <Button className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Plus className="h-4 w-4" />
+                  <span className="hidden sm:inline">Add User</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Add New User</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Full Name *</Label>
+                    <Input
+                      id="name"
+                      placeholder="Enter full name"
+                      value={newUser.name}
+                      onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Enter email address"
+                      value={newUser.email}
+                      onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="role">Role *</Label>
+                    <Select
+                      value={newUser.role}
+                      onValueChange={(value) => setNewUser({ ...newUser, role: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="student">Student</SelectItem>
+                        <SelectItem value="teacher">Teacher</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Password *</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Minimum 8 characters"
+                      value={newUser.password}
+                      onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => setIsAddUserOpen(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      className="flex-1 bg-primary hover:bg-primary/90"
+                      onClick={handleAddUser}
+                    >
+                      Add User
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
-        <Button variant="outline" className="gap-2">
-          <Filter className="h-4 w-4" />
-          Filter
-        </Button>
-      </div>
 
-      {/* Tabs and Table */}
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="all">All Users</TabsTrigger>
-          <TabsTrigger value="student">Students</TabsTrigger>
-          <TabsTrigger value="teacher">Teachers</TabsTrigger>
-          <TabsTrigger value="admin">Admins</TabsTrigger>
-        </TabsList>
+        {/* Tabs and Table */}
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="bg-muted/50">
+            <TabsTrigger value="all">All ({users.length})</TabsTrigger>
+            <TabsTrigger value="student">Students ({users.filter((u) => u.role === "student").length})</TabsTrigger>
+            <TabsTrigger value="teacher">Teachers ({users.filter((u) => u.role === "teacher").length})</TabsTrigger>
+            <TabsTrigger value="admin">Admins ({users.filter((u) => u.role === "admin").length})</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value={activeTab} className="mt-6">
-          <Card>
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>User</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Joined</TableHead>
-                    <TableHead>Last Active</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          <Avatar>
-                            <AvatarImage src={user.avatar} />
-                            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="font-medium">{user.name}</p>
-                            <p className="text-sm text-muted-foreground">{user.email}</p>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={roleColors[user.role as keyof typeof roleColors]}>
-                          {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={statusColors[user.status as keyof typeof statusColors]}>
-                          {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">{user.joinedDate}</TableCell>
-                      <TableCell className="text-muted-foreground">{user.lastActive}</TableCell>
-                      <TableCell className="text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MoreVertical className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem>
-                              <Mail className="h-4 w-4 mr-2" />
-                              Send Email
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <Shield className="h-4 w-4 mr-2" />
-                              Change Role
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="text-destructive">
-                              <Ban className="h-4 w-4 mr-2" />
-                              Suspend User
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
+          <TabsContent value={activeTab} className="mt-4">
+            <Card className="border-border/50">
+              <CardContent className="p-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="font-semibold">User</TableHead>
+                      <TableHead className="font-semibold">Role</TableHead>
+                      <TableHead className="font-semibold">Status</TableHead>
+                      <TableHead className="font-semibold hidden md:table-cell">Joined</TableHead>
+                      <TableHead className="font-semibold hidden lg:table-cell">Last Active</TableHead>
+                      <TableHead className="text-right font-semibold">Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredUsers.map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <Avatar className="h-9 w-9">
+                              <AvatarImage src={user.avatar} />
+                              <AvatarFallback className="bg-primary/10 text-primary text-sm">
+                                {user.name.charAt(0)}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium text-sm">{user.name}</p>
+                              <p className="text-xs text-muted-foreground">{user.email}</p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="secondary"
+                            className={
+                              user.role === "admin"
+                                ? "bg-amber-100 text-amber-700 hover:bg-amber-100"
+                                : user.role === "teacher"
+                                ? "bg-primary/10 text-primary hover:bg-primary/10"
+                                : "bg-muted text-muted-foreground"
+                            }
+                          >
+                            {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="secondary"
+                            className={
+                              user.status === "active"
+                                ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-100"
+                                : "bg-destructive/10 text-destructive hover:bg-destructive/10"
+                            }
+                          >
+                            {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-muted-foreground text-sm hidden md:table-cell">
+                          {user.joinedDate}
+                        </TableCell>
+                        <TableCell className="text-muted-foreground text-sm hidden lg:table-cell">
+                          {user.lastActive}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-8 w-8">
+                                <MoreVertical className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem className="gap-2">
+                                <Mail className="h-4 w-4" />
+                                Send Email
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="gap-2">
+                                <Shield className="h-4 w-4" />
+                                Change Role
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="gap-2 text-destructive">
+                                <Ban className="h-4 w-4" />
+                                Suspend User
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </UnifiedDashboard>
   );
