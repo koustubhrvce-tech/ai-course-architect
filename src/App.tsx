@@ -31,6 +31,7 @@ import CourseManagement from "./pages/dashboard/CourseManagement";
 import CourseBuilder from "./pages/dashboard/CourseBuilder";
 import UsersPage from "./pages/dashboard/Users";
 import Moderation from "./pages/dashboard/Moderation";
+import SEOSettings from "./pages/dashboard/SEOSettings";
 
 // Course Pages
 import CourseDetailPage from "./pages/course/CourseDetail";
@@ -85,6 +86,7 @@ const App = () => (
             <Route path="/dashboard/certificates" element={<Certificates />} />
             <Route path="/dashboard/users" element={<UsersPage />} />
             <Route path="/dashboard/moderation" element={<Moderation />} />
+            <Route path="/dashboard/seo-settings" element={<SEOSettings />} />
 
             {/* Course Pages (Standalone) */}
             <Route path="/course/:id" element={<CourseDetailPage />} />

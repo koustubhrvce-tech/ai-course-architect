@@ -108,13 +108,13 @@ export default function Landing() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/signup">
-                  <Button className="w-full sm:w-auto bg-coursera-blue hover:bg-coursera-blue-hover text-white font-semibold px-8 py-6 text-base">
+                  <Button className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 font-semibold px-8 py-6 text-base">
                     Join for Free
                   </Button>
                 </Link>
                 <Link to="/courses">
-                  <Button variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-base">
-                    Try Coursera for Business
+                  <Button className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-base">
+                    Explore Courses
                   </Button>
                 </Link>
               </div>
@@ -282,7 +282,7 @@ export default function Landing() {
                   </li>
                 ))}
               </ul>
-              <Button className="bg-white text-coursera-navy hover:bg-white/90 font-semibold px-6">
+              <Button className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-6">
                 Try AI Tutor
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -387,12 +387,12 @@ export default function Landing() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/signup">
-              <Button className="w-full sm:w-auto bg-white text-coursera-blue hover:bg-white/90 font-semibold px-8 py-6 text-base">
+              <Button className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 font-semibold px-8 py-6 text-base">
                 Sign Up for Free
               </Button>
             </Link>
             <Link to="/courses">
-              <Button variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-base">
+              <Button className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-base">
                 Explore Courses
               </Button>
             </Link>
