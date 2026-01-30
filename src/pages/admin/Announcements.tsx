@@ -26,7 +26,7 @@ const announcements = [
 export default function AnnouncementsPage() {
   return (
     <AdminDashboardLayout title="Announcements" subtitle="Send platform-wide messages">
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Create Announcement */}
         <Card>
           <CardHeader>

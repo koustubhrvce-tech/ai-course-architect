@@ -46,6 +46,7 @@ const mobileNavItems: NavItem[] = [
       { icon: Users, label: "All Users", href: "/dashboard/users" },
       { icon: GraduationCap, label: "Students", href: "/dashboard/students" },
       { icon: Users, label: "Teachers", href: "/dashboard/teachers" },
+      { icon: Shield, label: "Roles", href: "/dashboard/roles" },
     ],
   },
   {
@@ -53,7 +54,11 @@ const mobileNavItems: NavItem[] = [
     label: "Courses",
     children: [
       { icon: BookOpen, label: "All Courses", href: "/dashboard/courses" },
+      { icon: BookOpen, label: "Add Course", href: "/dashboard/courses/new" },
       { icon: BookOpen, label: "Categories", href: "/dashboard/categories" },
+      { icon: Users, label: "Enrollment", href: "/dashboard/enrollment" },
+      { icon: BookOpen, label: "Certificates", href: "/dashboard/certificates" },
+      { icon: BookOpen, label: "Completion", href: "/dashboard/completion" },
       { icon: BookOpen, label: "Approval", href: "/dashboard/course-approval" },
     ],
   },

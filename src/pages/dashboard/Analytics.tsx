@@ -27,7 +27,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
+import { AdminDashboardLayout } from "@/components/layout/AdminDashboardLayout";
 
 const revenueData = [
   { month: "Jan", revenue: 4500, students: 120 },
@@ -66,8 +66,8 @@ export default function Analytics() {
   const isTeacher = user?.role === "teacher";
 
   return (
-    <UnifiedDashboard title="Analytics" subtitle={isTeacher ? "Track your course performance and revenue" : "Monitor your learning progress"}>
-      <div className="p-6 space-y-6">
+    <AdminDashboardLayout title="Analytics" subtitle={isTeacher ? "Track your course performance and revenue" : "Monitor your learning progress"}>
+      <div className="space-y-4 md:space-y-6">
         <div className="flex items-center justify-end">
           <Badge className="bg-lms-blue/10 text-lms-blue">
             <Sparkles className="h-3 w-3 mr-1" />
@@ -346,6 +346,6 @@ export default function Analytics() {
         </>
       )}
       </div>
-    </UnifiedDashboard>
+    </AdminDashboardLayout>
   );
 }

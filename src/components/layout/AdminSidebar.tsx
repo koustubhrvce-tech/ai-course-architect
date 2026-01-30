@@ -55,6 +55,9 @@ import {
   HardDrive,
   User,
   Search,
+  Plus,
+  Award,
+  CheckSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -103,7 +106,11 @@ const adminNavItems: NavItem[] = [
     label: "Course Management",
     children: [
       { icon: BookOpen, label: "All Courses", href: "/dashboard/courses" },
+      { icon: Plus, label: "Add Course", href: "/dashboard/courses/new" },
       { icon: Folder, label: "Categories", href: "/dashboard/categories" },
+      { icon: UserCog, label: "Enrollment", href: "/dashboard/enrollment" },
+      { icon: Award, label: "Certificates", href: "/dashboard/certificates" },
+      { icon: CheckSquare, label: "Completion", href: "/dashboard/completion" },
       { icon: FileCheck, label: "Course Approval", href: "/dashboard/course-approval", badge: "5", badgeColor: "bg-destructive" },
     ],
   },
@@ -189,7 +196,7 @@ const bottomNavItems: NavItem[] = [
 ];
 
 export function AdminSidebar() {
-  const [openGroups, setOpenGroups] = useState<string[]>(["User Management", "Course Management"]);
+  const [openGroups, setOpenGroups] = useState<string[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();

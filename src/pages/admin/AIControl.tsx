@@ -38,50 +38,50 @@ const aiModels = [
 export default function AIControlPage() {
   return (
     <AdminDashboardLayout title="AI Control Center" subtitle="Monitor and manage AI integrations">
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Stats */}
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Tokens Used</p>
-                  <p className="text-2xl font-bold">2.4M</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Total Tokens Used</p>
+                  <p className="text-lg md:text-2xl font-bold">2.4M</p>
                 </div>
-                <Bot className="h-8 w-8 text-primary/50" />
+                <Bot className="h-6 w-6 md:h-8 md:w-8 text-primary/50" />
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gradient-to-br from-chart-3/10 to-chart-3/5 border-chart-3/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Monthly Cost</p>
-                  <p className="text-2xl font-bold">$1,779</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Monthly Cost</p>
+                  <p className="text-lg md:text-2xl font-bold">$1,779</p>
                 </div>
-                <DollarSign className="h-8 w-8 text-chart-3/50" />
+                <DollarSign className="h-6 w-6 md:h-8 md:w-8 text-chart-3/50" />
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">AI Interactions</p>
-                  <p className="text-2xl font-bold">45.2K</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">AI Interactions</p>
+                  <p className="text-lg md:text-2xl font-bold">45.2K</p>
                 </div>
-                <Brain className="h-8 w-8 text-accent/50" />
+                <Brain className="h-6 w-6 md:h-8 md:w-8 text-accent/50" />
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gradient-to-br from-chart-4/10 to-chart-4/5 border-chart-4/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Avg Response Time</p>
-                  <p className="text-2xl font-bold">1.2s</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Avg Response Time</p>
+                  <p className="text-lg md:text-2xl font-bold">1.2s</p>
                 </div>
-                <Zap className="h-8 w-8 text-chart-4/50" />
+                <Zap className="h-6 w-6 md:h-8 md:w-8 text-chart-4/50" />
               </div>
             </CardContent>
           </Card>

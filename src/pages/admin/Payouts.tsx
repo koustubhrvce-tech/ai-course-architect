@@ -27,50 +27,50 @@ const payoutRequests = [
 export default function PayoutsPage() {
   return (
     <AdminDashboardLayout title="Payouts" subtitle="Manage teacher payout requests">
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Stats */}
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
           <Card className="bg-gradient-to-br from-chart-3/10 to-chart-3/5 border-chart-3/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Pending Payouts</p>
-                  <p className="text-2xl font-bold">$24,500</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Pending Payouts</p>
+                  <p className="text-lg md:text-2xl font-bold">$24,500</p>
                 </div>
-                <Clock className="h-8 w-8 text-chart-3/50" />
+                <Clock className="h-6 w-6 md:h-8 md:w-8 text-chart-3/50" />
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Processing</p>
-                  <p className="text-2xl font-bold">$8,200</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Processing</p>
+                  <p className="text-lg md:text-2xl font-bold">$8,200</p>
                 </div>
-                <Wallet className="h-8 w-8 text-primary/50" />
+                <Wallet className="h-6 w-6 md:h-8 md:w-8 text-primary/50" />
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Paid This Month</p>
-                  <p className="text-2xl font-bold">$145,000</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Paid This Month</p>
+                  <p className="text-lg md:text-2xl font-bold">$145,000</p>
                 </div>
-                <CheckCircle className="h-8 w-8 text-accent/50" />
+                <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-accent/50" />
               </div>
             </CardContent>
           </Card>
           <Card className="bg-gradient-to-br from-chart-4/10 to-chart-4/5 border-chart-4/20">
-            <CardContent className="p-4">
+            <CardContent className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Requests</p>
-                  <p className="text-2xl font-bold">12</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Requests</p>
+                  <p className="text-lg md:text-2xl font-bold">12</p>
                 </div>
-                <TrendingUp className="h-8 w-8 text-chart-4/50" />
+                <TrendingUp className="h-6 w-6 md:h-8 md:w-8 text-chart-4/50" />
               </div>
             </CardContent>
           </Card>
