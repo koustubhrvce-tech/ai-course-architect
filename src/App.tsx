@@ -51,6 +51,9 @@ import SystemStatusPage from "./pages/admin/SystemStatus";
 import SEOSettingsPage from "./pages/admin/SEOSettingsNew";
 import AnnouncementsPage from "./pages/admin/Announcements";
 import HelpPage from "./pages/admin/Help";
+import EnrollmentPage from "./pages/admin/Enrollment";
+import CompletionPage from "./pages/admin/Completion";
+import FranchisesPage from "./pages/admin/Franchises";
 
 // Course Pages
 import CourseDetailPage from "./pages/course/CourseDetail";
@@ -123,8 +126,10 @@ const App = () => (
               <Route path="/dashboard/coupons" element={<CouponsPage />} />
               <Route path="/dashboard/subscriptions" element={<RevenuePage />} />
               <Route path="/dashboard/reports" element={<Analytics />} />
-              <Route path="/dashboard/franchises" element={<StudentsPage />} />
-              <Route path="/dashboard/institutions" element={<StudentsPage />} />
+              <Route path="/dashboard/enrollment" element={<EnrollmentPage />} />
+              <Route path="/dashboard/completion" element={<CompletionPage />} />
+              <Route path="/dashboard/franchises" element={<FranchisesPage />} />
+              <Route path="/dashboard/institutions" element={<FranchisesPage />} />
               <Route path="/dashboard/announcements" element={<AnnouncementsPage />} />
               <Route path="/dashboard/tickets" element={<TicketsPage />} />
               <Route path="/dashboard/community" element={<TicketsPage />} />

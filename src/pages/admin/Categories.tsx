@@ -69,7 +69,7 @@ const skillTags = [
 export default function CategoriesPage() {
   return (
     <AdminDashboardLayout title="Categories" subtitle="Manage course categories and skill tags">
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Actions */}
         <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
           <div className="relative">

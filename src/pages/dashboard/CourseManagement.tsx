@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
+import { AdminDashboardLayout } from "@/components/layout/AdminDashboardLayout";
 import {
   Search,
   Plus,
@@ -104,8 +104,8 @@ export default function CourseManagement() {
   ];
 
   return (
-    <UnifiedDashboard title="Course Management" subtitle="Create and manage your courses">
-      <div className="space-y-6">
+    <AdminDashboardLayout title="Course Management" subtitle="Create and manage your courses">
+      <div className="space-y-4 md:space-y-6">
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat) => (
@@ -285,6 +285,6 @@ export default function CourseManagement() {
           </TabsContent>
         </Tabs>
       </div>
-    </UnifiedDashboard>
+    </AdminDashboardLayout>
   );
 }

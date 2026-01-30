@@ -34,7 +34,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
+import { AdminDashboardLayout } from "@/components/layout/AdminDashboardLayout";
 import {
   Search,
   Plus,
@@ -178,8 +178,8 @@ export default function UsersPage() {
   ];
 
   return (
-    <UnifiedDashboard title="User Management" subtitle="Manage platform users and permissions">
-      <div className="space-y-6">
+    <AdminDashboardLayout title="User Management" subtitle="Manage platform users and permissions">
+      <div className="space-y-4 md:space-y-6">
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat) => (
@@ -450,6 +450,6 @@ export default function UsersPage() {
           </TabsContent>
         </Tabs>
       </div>
-    </UnifiedDashboard>
+    </AdminDashboardLayout>
   );
 }

@@ -34,25 +34,25 @@ const permissions = [
 export default function RolesPage() {
   return (
     <AdminDashboardLayout title="Roles & Permissions" subtitle="Manage user roles and access controls">
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Role Cards */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {roles.map((role) => (
             <Card key={role.id} className="relative overflow-hidden">
               <div className={`absolute top-0 left-0 right-0 h-1 ${role.color}`} />
-              <CardContent className="p-4 pt-5">
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-muted-foreground" />
-                    <h3 className="font-semibold">{role.name}</h3>
+              <CardContent className="p-3 md:p-4 pt-4 md:pt-5">
+                <div className="flex items-start justify-between mb-1 md:mb-2">
+                  <div className="flex items-center gap-1.5 md:gap-2">
+                    <Shield className="h-4 w-4 md:h-5 md:w-5 text-muted-foreground" />
+                    <h3 className="font-semibold text-xs md:text-sm">{role.name}</h3>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <Edit className="h-4 w-4" />
+                  <Button variant="ghost" size="icon" className="h-6 w-6 md:h-8 md:w-8">
+                    <Edit className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground mb-3">{role.description}</p>
-                <div className="flex items-center gap-1 text-sm">
-                  <Users className="h-4 w-4" />
+                <p className="text-[10px] md:text-sm text-muted-foreground mb-2 md:mb-3 line-clamp-2">{role.description}</p>
+                <div className="flex items-center gap-1 text-[10px] md:text-sm">
+                  <Users className="h-3 w-3 md:h-4 md:w-4" />
                   <span>{role.users.toLocaleString()} users</span>
                 </div>
               </CardContent>
