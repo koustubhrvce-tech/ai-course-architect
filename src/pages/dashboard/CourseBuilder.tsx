@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { AdminDashboardLayout } from "@/components/layout/AdminDashboardLayout";
 import { UnifiedDashboard } from "@/components/layout/UnifiedDashboard";
 import { CourseBuilderStepper } from "@/components/course-builder/CourseBuilderStepper";
 import { CourseBasicInfo } from "@/components/course-builder/CourseBasicInfo";
@@ -10,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Save, Eye, Rocket } from "lucide-react";
 
 export interface CourseData {
-  // Basic Info
   title: string;
   subtitle: string;
   description: string;
@@ -19,21 +20,13 @@ export interface CourseData {
   language: string;
   thumbnail: string;
   promoVideo: string;
-  
-  // Pricing
   price: number;
   salePrice: number;
-  
-  // Curriculum
   sections: Section[];
-  
-  // Certificate
   certificateEnabled: boolean;
   certificateTemplate: string;
   certificateTitle: string;
   certificateDescription: string;
-  
-  // Settings
   isPublic: boolean;
   enableDrip: boolean;
   enableComments: boolean;
@@ -66,31 +59,18 @@ const steps = [
 ];
 
 const initialCourseData: CourseData = {
-  title: "",
-  subtitle: "",
-  description: "",
-  category: "",
-  level: "beginner",
-  language: "english",
-  thumbnail: "",
-  promoVideo: "",
-  price: 0,
-  salePrice: 0,
-  sections: [],
-  certificateEnabled: true,
-  certificateTemplate: "modern",
+  title: "", subtitle: "", description: "", category: "", level: "beginner",
+  language: "english", thumbnail: "", promoVideo: "", price: 0, salePrice: 0,
+  sections: [], certificateEnabled: true, certificateTemplate: "modern",
   certificateTitle: "Certificate of Completion",
   certificateDescription: "has successfully completed the course",
-  isPublic: true,
-  enableDrip: false,
-  enableComments: true,
-  enableReviews: true,
-  maxStudents: 0,
-  enrollmentDuration: 0,
+  isPublic: true, enableDrip: false, enableComments: true, enableReviews: true,
+  maxStudents: 0, enrollmentDuration: 0,
 };
 
 export default function CourseBuilder() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [courseData, setCourseData] = useState<CourseData>(initialCourseData);
   const [isSaving, setIsSaving] = useState(false);
@@ -99,17 +79,8 @@ export default function CourseBuilder() {
     setCourseData((prev) => ({ ...prev, ...updates }));
   };
 
-  const handleNext = () => {
-    if (currentStep < steps.length) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
+  const handleNext = () => { if (currentStep < steps.length) setCurrentStep(currentStep + 1); };
+  const handlePrev = () => { if (currentStep > 1) setCurrentStep(currentStep - 1); };
 
   const handleSaveDraft = async () => {
     setIsSaving(true);
@@ -126,82 +97,55 @@ export default function CourseBuilder() {
 
   const renderStepContent = () => {
     switch (currentStep) {
-      case 1:
-        return <CourseBasicInfo data={courseData} onUpdate={updateCourseData} />;
-      case 2:
-        return <CourseCurriculum data={courseData} onUpdate={updateCourseData} />;
-      case 3:
-        return <CourseCertificate data={courseData} onUpdate={updateCourseData} />;
-      case 4:
-        return <CourseSettings data={courseData} onUpdate={updateCourseData} />;
-      default:
-        return null;
+      case 1: return <CourseBasicInfo data={courseData} onUpdate={updateCourseData} />;
+      case 2: return <CourseCurriculum data={courseData} onUpdate={updateCourseData} />;
+      case 3: return <CourseCertificate data={courseData} onUpdate={updateCourseData} />;
+      case 4: return <CourseSettings data={courseData} onUpdate={updateCourseData} />;
+      default: return null;
     }
   };
 
-  return (
-    <UnifiedDashboard title="Course Builder" subtitle="Create a new course">
-      <div className="p-4 md:p-6 lg:p-8 max-w-6xl mx-auto space-y-6">
-        {/* Stepper */}
-        <CourseBuilderStepper steps={steps} currentStep={currentStep} onStepClick={setCurrentStep} />
-
-        {/* Step Content */}
-        <div className="min-h-[500px]">
-          {renderStepContent()}
-        </div>
-
-        {/* Navigation */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t">
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Button
-              variant="outline"
-              onClick={handlePrev}
-              disabled={currentStep === 1}
-              className="flex-1 sm:flex-none rounded-xl"
-            >
-              <ChevronLeft className="h-4 w-4 mr-2" />
-              Previous
+  const content = (
+    <div className="max-w-6xl mx-auto space-y-4 md:space-y-6">
+      <CourseBuilderStepper steps={steps} currentStep={currentStep} onStepClick={setCurrentStep} />
+      <div className="min-h-[400px] md:min-h-[500px]">{renderStepContent()}</div>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 md:gap-4 pt-4 md:pt-6 border-t">
+        <Button variant="outline" onClick={handlePrev} disabled={currentStep === 1} className="w-full sm:w-auto">
+          <ChevronLeft className="h-4 w-4 mr-2" /> Previous
+        </Button>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <Button variant="outline" onClick={handleSaveDraft} disabled={isSaving} className="flex-1 sm:flex-none">
+            <Save className="h-4 w-4 mr-2" /> Save Draft
+          </Button>
+          <Button variant="outline" className="flex-1 sm:flex-none">
+            <Eye className="h-4 w-4 mr-2" /> Preview
+          </Button>
+          {currentStep < steps.length ? (
+            <Button onClick={handleNext} className="flex-1 sm:flex-none bg-primary hover:bg-primary/90">
+              Next <ChevronRight className="h-4 w-4 ml-2" />
             </Button>
-          </div>
-
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Button
-              variant="outline"
-              onClick={handleSaveDraft}
-              disabled={isSaving}
-              className="flex-1 sm:flex-none rounded-xl"
-            >
-              <Save className="h-4 w-4 mr-2" />
-              Save Draft
+          ) : (
+            <Button onClick={handlePublish} disabled={isSaving} className="flex-1 sm:flex-none bg-accent hover:bg-accent/90">
+              <Rocket className="h-4 w-4 mr-2" /> Publish
             </Button>
-            <Button
-              variant="outline"
-              className="flex-1 sm:flex-none rounded-xl"
-            >
-              <Eye className="h-4 w-4 mr-2" />
-              Preview
-            </Button>
-            {currentStep < steps.length ? (
-              <Button
-                onClick={handleNext}
-                className="flex-1 sm:flex-none bg-lms-blue hover:bg-lms-blue/90 rounded-xl"
-              >
-                Next
-                <ChevronRight className="h-4 w-4 ml-2" />
-              </Button>
-            ) : (
-              <Button
-                onClick={handlePublish}
-                disabled={isSaving}
-                className="flex-1 sm:flex-none bg-lms-emerald hover:bg-lms-emerald/90 rounded-xl"
-              >
-                <Rocket className="h-4 w-4 mr-2" />
-                Publish Course
-              </Button>
-            )}
-          </div>
+          )}
         </div>
       </div>
+    </div>
+  );
+
+  // Admin uses AdminDashboardLayout, teachers use UnifiedDashboard
+  if (user?.role === "admin") {
+    return (
+      <AdminDashboardLayout title="Course Builder" subtitle="Create a new course">
+        {content}
+      </AdminDashboardLayout>
+    );
+  }
+
+  return (
+    <UnifiedDashboard title="Course Builder" subtitle="Create a new course">
+      {content}
     </UnifiedDashboard>
   );
 }

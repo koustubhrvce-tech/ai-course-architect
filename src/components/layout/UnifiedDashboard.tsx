@@ -3,6 +3,8 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { UnifiedSidebar } from "./UnifiedSidebar";
 import { UnifiedTopBar } from "./UnifiedTopBar";
+import { useSidebarContext } from "@/contexts/SidebarContext";
+import { cn } from "@/lib/utils";
 
 interface UnifiedDashboardProps {
   children: ReactNode;
@@ -12,17 +14,23 @@ interface UnifiedDashboardProps {
 
 export function UnifiedDashboard({ children, title, subtitle }: UnifiedDashboardProps) {
   const { user, isAuthenticated } = useAuth();
+  const { collapsed } = useSidebarContext();
 
   if (!isAuthenticated || !user) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-muted">
+    <div className="flex min-h-screen w-full bg-muted/30">
       <UnifiedSidebar />
-      <div className="flex flex-1 flex-col pl-[260px] max-md:pl-0">
+      <div
+        className={cn(
+          "flex flex-1 flex-col transition-all duration-300 ease-in-out",
+          collapsed ? "md:pl-[70px]" : "md:pl-[260px]"
+        )}
+      >
         <UnifiedTopBar title={title} subtitle={subtitle} />
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 md:p-6">
           {children}
         </main>
       </div>
