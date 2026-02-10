@@ -10,13 +10,19 @@ import {
   BarChart3,
   Trophy,
   LogOut,
-  ShieldCheck,
+  FileText,
+  ShoppingCart,
+  Target,
+  Star,
+  Tag,
+  HelpCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth, UserRole } from "@/contexts/AuthContext";
 import { SheetClose } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const getNavItems = (role: UserRole) => {
   switch (role) {
@@ -26,6 +32,8 @@ const getNavItems = (role: UserRole) => {
         { icon: BookOpen, label: "My Courses", href: "/dashboard/courses" },
         { icon: Users, label: "Students", href: "/dashboard/students" },
         { icon: DollarSign, label: "Revenue", href: "/dashboard/revenue" },
+        { icon: Tag, label: "Promotions", href: "/dashboard/promotions" },
+        { icon: Star, label: "Reviews", href: "/dashboard/reviews" },
         { icon: MessageSquare, label: "Messages", href: "/dashboard/messages" },
         { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
       ];
@@ -34,16 +42,11 @@ const getNavItems = (role: UserRole) => {
         { icon: LayoutDashboard, label: "Home", href: "/dashboard" },
         { icon: GraduationCap, label: "My Learning", href: "/dashboard/my-courses" },
         { icon: BookOpen, label: "Catalog", href: "/dashboard/catalog" },
+        { icon: FileText, label: "Assignments", href: "/dashboard/assignments" },
         { icon: Trophy, label: "Achievements", href: "/dashboard/certificates" },
+        { icon: Target, label: "Goals", href: "/dashboard/learning-path" },
         { icon: MessageSquare, label: "Messages", href: "/dashboard/messages" },
-      ];
-    case "admin":
-      return [
-        { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-        { icon: Users, label: "Users", href: "/dashboard/users" },
-        { icon: BookOpen, label: "Courses", href: "/dashboard/courses" },
-        { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
-        { icon: ShieldCheck, label: "Security", href: "/dashboard/security" },
+        { icon: ShoppingCart, label: "Cart", href: "/dashboard/cart" },
       ];
     default:
       return [];
@@ -60,44 +63,77 @@ export function UnifiedMobileSidebar() {
   const navItems = getNavItems(user.role);
   const isActive = (href: string) => href === "/dashboard" ? location.pathname === href : location.pathname.startsWith(href);
 
+  const getRoleLabel = (role: UserRole) => {
+    switch (role) {
+      case "teacher": return "Instructor";
+      case "student": return "Learner";
+      default: return role;
+    }
+  };
+
   return (
-    <div className="flex h-full flex-col bg-white">
-      <div className="flex h-14 items-center gap-2 border-b px-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded bg-coursera-blue">
+    <div className="flex h-full flex-col bg-gradient-to-b from-[hsl(220,50%,15%)] to-[hsl(220,50%,12%)]">
+      {/* Header */}
+      <div className="flex h-14 items-center gap-2 border-b border-white/10 px-4 flex-shrink-0">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
           <GraduationCap className="h-5 w-5 text-white" />
         </div>
-        <span className="text-lg font-bold">LearnAI</span>
+        <span className="text-lg font-bold text-white">LearnAI</span>
       </div>
-      <div className="p-4 border-b">
+
+      {/* User Profile */}
+      <div className="p-4 border-b border-white/10 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10">
+          <Avatar className="h-10 w-10 border-2 border-white/20">
             <AvatarImage src={user.avatar} />
-            <AvatarFallback className="bg-coursera-blue text-white">{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+            <AvatarFallback className="bg-primary text-white">{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div>
-            <p className="font-medium">{user.name}</p>
-            <p className="text-sm text-muted-foreground capitalize">{user.role}</p>
+            <p className="font-medium text-white">{user.name}</p>
+            <p className="text-xs text-white/50">{getRoleLabel(user.role)}</p>
           </div>
         </div>
       </div>
-      <nav className="flex-1 overflow-y-auto p-3 space-y-1">
-        {navItems.map((item) => (
-          <SheetClose asChild key={item.href}>
-            <Link to={item.href} className={cn("flex items-center gap-3 px-3 py-2.5 text-sm font-medium", isActive(item.href) ? "bg-coursera-blue-light text-coursera-blue" : "text-muted-foreground hover:bg-muted")}>
-              <item.icon className="h-5 w-5" />
-              <span>{item.label}</span>
-            </Link>
-          </SheetClose>
-        ))}
-      </nav>
-      <div className="border-t p-3 space-y-1">
+
+      {/* Navigation */}
+      <ScrollArea className="flex-1 p-3">
+        <nav className="space-y-1">
+          {navItems.map((item) => (
+            <SheetClose asChild key={item.href}>
+              <Link
+                to={item.href}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200",
+                  isActive(item.href)
+                    ? "bg-white/15 text-white"
+                    : "text-white/60 hover:bg-white/10 hover:text-white"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.label}</span>
+              </Link>
+            </SheetClose>
+          ))}
+        </nav>
+      </ScrollArea>
+
+      {/* Bottom */}
+      <div className="border-t border-white/10 p-3 space-y-1 flex-shrink-0">
         <SheetClose asChild>
-          <Link to="/dashboard/settings" className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted">
+          <Link to="/dashboard/settings" className="flex items-center gap-3 px-3 py-2 text-sm text-white/60 hover:bg-white/10 hover:text-white rounded-lg transition-colors">
             <Settings className="h-5 w-5" /><span>Settings</span>
           </Link>
         </SheetClose>
         <SheetClose asChild>
-          <button onClick={() => { logout(); navigate("/login"); }} className="flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted">
+          <Link to="/dashboard/help" className="flex items-center gap-3 px-3 py-2 text-sm text-white/60 hover:bg-white/10 hover:text-white rounded-lg transition-colors">
+            <HelpCircle className="h-5 w-5" /><span>Help</span>
+          </Link>
+        </SheetClose>
+        <SheetClose asChild>
+          <button
+            onClick={() => { logout(); navigate("/login"); }}
+            className="flex w-full items-center gap-3 px-3 py-2 text-sm text-white/60 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
+          >
             <LogOut className="h-5 w-5" /><span>Log out</span>
           </button>
         </SheetClose>

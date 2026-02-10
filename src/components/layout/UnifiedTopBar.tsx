@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Bell, Search, Menu, X, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { UnifiedMobileSidebar } from "./UnifiedMobileSidebar";
@@ -18,7 +17,7 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-white px-4 md:px-6 shadow-nav">
+    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-background px-4 md:px-6">
       {/* Mobile Menu */}
       <Sheet>
         <SheetTrigger asChild>
@@ -26,7 +25,7 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="p-0 w-[260px]">
+        <SheetContent side="left" className="p-0 w-[280px]">
           <UnifiedMobileSidebar />
         </SheetContent>
       </Sheet>
@@ -45,7 +44,7 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
 
       {/* Mobile Logo */}
       <Link to="/dashboard" className="flex items-center gap-2 md:hidden">
-        <div className="flex h-8 w-8 items-center justify-center rounded bg-coursera-blue">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
           <GraduationCap className="h-5 w-5 text-white" />
         </div>
         <span className="text-lg font-bold">LearnAI</span>
@@ -53,17 +52,15 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
 
       {/* Right Side Actions */}
       <div className="flex items-center gap-2 md:gap-3 ml-auto">
-        {/* Search */}
         <div className="relative hidden md:block">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search..."
-            className="w-64 pl-10 h-9 bg-muted/50 border-0 focus:bg-white focus:border"
+            className="w-64 pl-10 h-9 bg-muted/50 border-0 focus:bg-background focus:border"
           />
         </div>
 
-        {/* Mobile Search Toggle */}
         <Button
           variant="ghost"
           size="icon"
@@ -73,17 +70,15 @@ export function UnifiedTopBar({ title, subtitle }: UnifiedTopBarProps) {
           {showSearch ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
         </Button>
 
-        {/* Notifications */}
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />
-          <span className="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full bg-coursera-orange text-[10px] text-white flex items-center justify-center font-medium">
+          <span className="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full bg-destructive text-[10px] text-white flex items-center justify-center font-medium">
             3
           </span>
         </Button>
 
-        {/* User Avatar - Mobile Only */}
         <div className="md:hidden">
-          <div className="h-8 w-8 rounded-full bg-coursera-blue flex items-center justify-center text-white text-sm font-medium">
+          <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-medium">
             {user?.name.slice(0, 2).toUpperCase()}
           </div>
         </div>
