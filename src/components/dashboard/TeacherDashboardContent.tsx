@@ -48,10 +48,10 @@ export function TeacherDashboardContent() {
               <div className="flex items-center justify-between mb-1 md:mb-2">
                 <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
                 {stat.change && (
-                  <span className="text-[10px] md:text-xs text-accent flex items-center gap-0.5">
-                    <TrendingUp className="h-3 w-3" />
-                    {stat.change}
-                  </span>
+                  <span className="text-[10px] md:text-xs text-chart-2 flex items-center gap-0.5">
+                      <TrendingUp className="h-3 w-3" />
+                      {stat.change}
+                    </span>
                 )}
               </div>
               <p className="text-lg md:text-2xl font-bold text-foreground">{stat.value}</p>
@@ -75,7 +75,7 @@ export function TeacherDashboardContent() {
               <div className="divide-y">
                 {topCourses.map((course, index) => (
                   <div key={index} className="p-3 md:p-4 flex items-center gap-3 md:gap-4">
-                    <div className="h-8 w-8 md:h-10 md:w-10 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center text-xs md:text-sm font-bold text-primary rounded-lg">
+                    <div className="h-8 w-8 md:h-10 md:w-10 bg-gradient-to-br from-primary/10 to-secondary/50 flex items-center justify-center text-xs md:text-sm font-bold text-primary rounded-lg">
                       {index + 1}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -118,7 +118,7 @@ export function TeacherDashboardContent() {
           </Card>
 
           {/* Earnings Summary */}
-          <Card className="border mt-3 md:mt-4 bg-gradient-to-br from-primary/5 to-accent/5">
+          <Card className="border mt-3 md:mt-4 bg-gradient-to-br from-primary/5 to-secondary/50">
             <CardContent className="p-3 md:p-4">
               <h4 className="text-xs md:text-sm font-semibold text-foreground mb-2 md:mb-3">This Month</h4>
               <div className="space-y-2 md:space-y-3">

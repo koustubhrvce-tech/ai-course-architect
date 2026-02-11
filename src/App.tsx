@@ -104,6 +104,9 @@ const App = () => (
               <Route path="/dashboard/courses/new" element={<CourseBuilder />} />
               <Route path="/dashboard/courses/:id/edit" element={<CourseBuilder />} />
               <Route path="/dashboard/analytics" element={<Analytics />} />
+              <Route path="/dashboard/my-analytics" element={<Analytics />} />
+              <Route path="/dashboard/my-students" element={<StudentsPage />} />
+              <Route path="/dashboard/earnings" element={<RevenuePage />} />
               <Route path="/dashboard/settings" element={<Settings />} />
               <Route path="/dashboard/messages" element={<Messages />} />
               <Route path="/dashboard/certificates" element={<Certificates />} />

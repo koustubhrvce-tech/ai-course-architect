@@ -51,7 +51,7 @@ export function StudentDashboardContent() {
   return (
     <div className="space-y-4 md:space-y-6">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-primary to-accent p-4 md:p-6 rounded-lg text-white">
+      <div className="bg-gradient-to-r from-primary to-[hsl(220,50%,15%)] p-4 md:p-6 rounded-lg text-white">
         <h2 className="text-lg md:text-xl font-semibold mb-1">Welcome back!</h2>
         <p className="text-white/80 text-xs md:text-sm">
           You have 3 courses in progress. Keep up the great work!
