@@ -203,7 +203,7 @@ export function AdminSidebar() {
       if (item.children?.some((child) => {
         if (!child.href) return false;
         if (child.href === "/dashboard") return location.pathname === child.href;
-        return location.pathname.startsWith(child.href);
+        return location.pathname === child.href || location.pathname.startsWith(child.href + "/");
       })) {
         active.push(item.label);
       }
@@ -233,7 +233,8 @@ export function AdminSidebar() {
   const isActive = (href?: string) => {
     if (!href) return false;
     if (href === "/dashboard") return location.pathname === href;
-    return location.pathname.startsWith(href);
+    // Exact match to prevent double-highlight (e.g. /dashboard/courses vs /dashboard/courses/new)
+    return location.pathname === href;
   };
 
   const isGroupActive = (item: NavItem) => {
@@ -361,7 +362,7 @@ export function AdminSidebar() {
       {/* Logo & Collapse */}
       <div className="flex h-14 items-center justify-between border-b border-white/10 px-4 flex-shrink-0">
         <div className={cn("flex items-center gap-3 overflow-hidden transition-all duration-300", collapsed ? "w-9" : "w-full")}>
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent flex-shrink-0">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-[hsl(220,50%,25%)] flex-shrink-0">
             <GraduationCap className="h-5 w-5 text-white" />
           </div>
           <div className={cn("whitespace-nowrap transition-opacity duration-200", collapsed ? "opacity-0" : "opacity-100")}>

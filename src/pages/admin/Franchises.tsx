@@ -26,6 +26,7 @@ import {
   Edit,
   Trash2,
   Filter,
+  ExternalLink,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -283,6 +284,10 @@ export default function FranchisesPage() {
                       </TableCell>
                       <TableCell className="p-2 md:p-4 text-right">
                         <div className="flex justify-end gap-1">
+                          <Button variant="outline" size="sm" className="h-7 text-[10px] md:text-xs gap-1">
+                            <ExternalLink className="h-3 w-3" />
+                            <span className="hidden sm:inline">Visit</span>
+                          </Button>
                           <Button variant="ghost" size="icon" className="h-7 w-7 md:h-8 md:w-8">
                             <Edit className="h-3 w-3 md:h-4 md:w-4" />
                           </Button>

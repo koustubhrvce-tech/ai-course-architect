@@ -101,7 +101,7 @@ export function AdminMobileSidebar() {
     <div className="flex h-full flex-col bg-gradient-to-b from-[hsl(220,50%,15%)] to-[hsl(220,50%,12%)]">
       {/* Header */}
       <div className="flex h-16 items-center gap-3 border-b border-white/10 px-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-[hsl(220,50%,25%)]">
           <GraduationCap className="h-5 w-5 text-white" />
         </div>
         <div>

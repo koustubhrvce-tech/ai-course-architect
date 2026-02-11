@@ -45,13 +45,14 @@ const getNavItems = (role: UserRole): NavItem[] => {
     case "teacher":
       return [
         { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-        { icon: BookOpen, label: "My Courses", href: "/dashboard/courses", badge: "12" },
-        { icon: Users, label: "Students", href: "/dashboard/students" },
-        { icon: DollarSign, label: "Revenue", href: "/dashboard/revenue" },
+        { icon: BookOpen, label: "My Courses", href: "/dashboard/my-courses", badge: "12" },
+        { icon: Plus, label: "Add Course", href: "/dashboard/courses/new" },
+        { icon: Users, label: "My Students", href: "/dashboard/my-students" },
+        { icon: DollarSign, label: "Earnings", href: "/dashboard/earnings" },
         { icon: Tag, label: "Promotions", href: "/dashboard/promotions" },
         { icon: Star, label: "Reviews", href: "/dashboard/reviews" },
         { icon: MessageSquare, label: "Messages", href: "/dashboard/messages", badge: "3" },
-        { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
+        { icon: BarChart3, label: "Analytics", href: "/dashboard/my-analytics" },
       ];
     case "student":
       return [
@@ -114,7 +115,7 @@ export function UnifiedSidebar() {
       {/* Logo */}
       <div className="flex h-14 items-center justify-between border-b border-white/10 px-4 flex-shrink-0">
         <div className={cn("flex items-center gap-2 overflow-hidden transition-all duration-300", collapsed ? "w-8" : "w-full")}>
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent flex-shrink-0">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-[hsl(220,50%,25%)] flex-shrink-0">
             <GraduationCap className="h-5 w-5 text-white" />
           </div>
           <span className={cn("text-lg font-bold text-white whitespace-nowrap transition-opacity duration-200", collapsed ? "opacity-0" : "opacity-100")}>
